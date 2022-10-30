@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 200,
               width: MediaQuery.of(context).size.width-20,
               area: 80,
+              curveSize: 20,
               isCornerRounded: true,
               child: Container(
 

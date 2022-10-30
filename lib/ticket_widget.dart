@@ -4,6 +4,7 @@ class TicketWidget extends StatefulWidget {
   final double width;
   final double height;
   final double area;
+  final double curveSize;
   final Widget child;
   final Color color;
   final bool isCornerRounded;
@@ -13,6 +14,7 @@ class TicketWidget extends StatefulWidget {
         required this.height,
         required this.child,
         required this.area,
+        required this.curveSize,
         this.color = Colors.white,
         this.isCornerRounded = false});
 
@@ -26,7 +28,7 @@ class TicketWidgetState extends State<TicketWidget> {
     return ClipPath(
       clipBehavior: Clip.hardEdge,
 
-      clipper: TicketClipper(area: widget.area),
+      clipper: TicketClipper(area: widget.area, curveSize: widget.curveSize),
       child: Container(
         width: widget.width,
         height: widget.height,
@@ -44,9 +46,10 @@ class TicketWidgetState extends State<TicketWidget> {
 
 class TicketClipper extends CustomClipper<Path> {
   final double area;
+  final double curveSize;
 
   TicketClipper(
-      {required this.area});
+      {required this.area, required this.curveSize});
 
   @override
   Path getClip(Size size) {
@@ -57,9 +60,9 @@ class TicketClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0.0);
 
    path.addOval(Rect.fromCircle(
-       center: Offset( size.width/2 - area, 0.0), radius: 25.0));
+       center: Offset( area, 0.0), radius: curveSize));
     path.addOval(Rect.fromCircle(
-        center: Offset( size.width/2 - area, size.height), radius: 25.0));
+        center: Offset( area, size.height), radius: curveSize));
 
     return path;
   }
